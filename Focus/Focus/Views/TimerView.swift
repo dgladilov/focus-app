@@ -11,7 +11,7 @@ class TimerView: UIView {
     
     let statusLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.setFont(name: Fonts.avenirNextRegular, size: 65)
+        label.font = UIFont.setFont(name: Fonts.avenirNextRegular, size: 55)
         label.textColor = Colors.white
         label.text = "Ready?"
         label.textAlignment = .center

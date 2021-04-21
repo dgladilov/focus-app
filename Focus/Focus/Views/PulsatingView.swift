@@ -18,7 +18,7 @@ class PulsatingView: UIView {
     
     private var topView: UIView = {
         let view = UIView()
-        view.alpha = 0.8
+        view.alpha = 0.6
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return view
     }()

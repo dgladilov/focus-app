@@ -18,6 +18,8 @@
 		DCAD3587263087B800E8940A /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD3586263087B800E8940A /* Fonts.swift */; };
 		DCAD358A2630958500E8940A /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD35892630958500E8940A /* TimerView.swift */; };
 		DCAD358D26309B4A00E8940A /* PulsatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD358C26309B4A00E8940A /* PulsatingView.swift */; };
+		DCAD35922630B7F200E8940A /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD35912630B7F200E8940A /* SettingsVC.swift */; };
+		DCAD35962630C37500E8940A /* TimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD35952630C37500E8940A /* TimeSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		DCAD3586263087B800E8940A /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		DCAD35892630958500E8940A /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		DCAD358C26309B4A00E8940A /* PulsatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingView.swift; sourceTree = "<group>"; };
+		DCAD35912630B7F200E8940A /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		DCAD35952630C37500E8940A /* TimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				DC40E37C262820F80063D1E0 /* TimerVC.swift */,
+				DCAD35912630B7F200E8940A /* SettingsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 				DCAD358326307FD100E8940A /* StartStopButton.swift */,
 				DCAD35892630958500E8940A /* TimerView.swift */,
 				DCAD358C26309B4A00E8940A /* PulsatingView.swift */,
+				DCAD35952630C37500E8940A /* TimeSlider.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -198,8 +204,10 @@
 				DC40E379262820F80063D1E0 /* AppDelegate.swift in Sources */,
 				DC40E383262820F80063D1E0 /* Focus.xcdatamodeld in Sources */,
 				DCAD358D26309B4A00E8940A /* PulsatingView.swift in Sources */,
+				DCAD35962630C37500E8940A /* TimeSlider.swift in Sources */,
 				DCAD358A2630958500E8940A /* TimerView.swift in Sources */,
 				DC40E37B262820F80063D1E0 /* SceneDelegate.swift in Sources */,
+				DCAD35922630B7F200E8940A /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@ class TimerVC: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "settings"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(presentSettings), for: .touchUpInside)
         return button
     }()
     
@@ -30,12 +31,16 @@ class TimerVC: UIViewController {
     var startStopButton: StartStopButton = {
         let button = StartStopButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = Colors.green
+        button.backgroundColor = Colors.green.withAlphaComponent(0.8)
         button.setTitle("Start", for: .normal)
         button.addTarget(self, action: #selector(startStopTimerBtnPressed), for: .touchUpInside)
         return button
     }()
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.purple
@@ -43,22 +48,19 @@ class TimerVC: UIViewController {
         setupConstraints()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     @objc private func startStopTimerBtnPressed() {
         if !timerIsTicking {
             startStopButton.startTimerButtonAppearance()
-            timerView.pulseView.startPulsating()
             timerIsTicking.toggle()
-            print("\(timerIsTicking)")
         } else {
             startStopButton.resetTimerButtonAppearance()
-            timerView.pulseView.stopPulsating()
             timerIsTicking.toggle()
-            print("\(timerIsTicking)")
         }
+    }
+    
+    @objc private func presentSettings() {
+        let settingsVC = SettingsVC()
+        present(settingsVC, animated: true, completion: nil)
     }
 
 }

@@ -34,7 +34,7 @@ class StartStopButton: UIButton {
     
     func resetTimerButtonAppearance() {
         UIView.transition(with: self, duration: 0.3, options: .curveEaseInOut) {
-            self.backgroundColor = Colors.green
+            self.backgroundColor = Colors.green.withAlphaComponent(0.8)
             self.setTitle("Start", for: .normal)
         }
     }
