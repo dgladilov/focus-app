@@ -23,6 +23,7 @@ class TimerVC: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "burger"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(presentStats), for: .touchUpInside)
         return button
     }()
     
@@ -61,6 +62,11 @@ class TimerVC: UIViewController {
     @objc private func presentSettings() {
         let settingsVC = SettingsVC()
         present(settingsVC, animated: true, completion: nil)
+    }
+    
+    @objc private func presentStats() {
+        let statsVC = StatsVC()
+        present(statsVC, animated: true, completion: nil)
     }
 
 }

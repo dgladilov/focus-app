@@ -133,6 +133,7 @@ class SettingsVC: UIViewController {
     }
     
     @objc private func saveSettings() {
+        print("data saved")
         dismiss(animated: true)
     }
     

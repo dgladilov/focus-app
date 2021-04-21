@@ -20,6 +20,7 @@
 		DCAD358D26309B4A00E8940A /* PulsatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD358C26309B4A00E8940A /* PulsatingView.swift */; };
 		DCAD35922630B7F200E8940A /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD35912630B7F200E8940A /* SettingsVC.swift */; };
 		DCAD35962630C37500E8940A /* TimeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD35952630C37500E8940A /* TimeSlider.swift */; };
+		DCAD35992630C69700E8940A /* StatsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD35982630C69700E8940A /* StatsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		DCAD358C26309B4A00E8940A /* PulsatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingView.swift; sourceTree = "<group>"; };
 		DCAD35912630B7F200E8940A /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		DCAD35952630C37500E8940A /* TimeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSlider.swift; sourceTree = "<group>"; };
+		DCAD35982630C69700E8940A /* StatsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				DC40E37C262820F80063D1E0 /* TimerVC.swift */,
 				DCAD35912630B7F200E8940A /* SettingsVC.swift */,
+				DCAD35982630C69700E8940A /* StatsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				DC40E383262820F80063D1E0 /* Focus.xcdatamodeld in Sources */,
 				DCAD358D26309B4A00E8940A /* PulsatingView.swift in Sources */,
 				DCAD35962630C37500E8940A /* TimeSlider.swift in Sources */,
+				DCAD35992630C69700E8940A /* StatsVC.swift in Sources */,
 				DCAD358A2630958500E8940A /* TimerView.swift in Sources */,
 				DC40E37B262820F80063D1E0 /* SceneDelegate.swift in Sources */,
 				DCAD35922630B7F200E8940A /* SettingsVC.swift in Sources */,
