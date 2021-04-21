@@ -13,6 +13,11 @@
 		DC40E383262820F80063D1E0 /* Focus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC40E381262820F80063D1E0 /* Focus.xcdatamodeld */; };
 		DC40E385262820F90063D1E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC40E384262820F90063D1E0 /* Assets.xcassets */; };
 		DC40E388262820F90063D1E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC40E386262820F90063D1E0 /* LaunchScreen.storyboard */; };
+		DCAD357F26305BD100E8940A /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD357E26305BD100E8940A /* Colors.swift */; };
+		DCAD358426307FD100E8940A /* StartStopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD358326307FD100E8940A /* StartStopButton.swift */; };
+		DCAD3587263087B800E8940A /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD3586263087B800E8940A /* Fonts.swift */; };
+		DCAD358A2630958500E8940A /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD35892630958500E8940A /* TimerView.swift */; };
+		DCAD358D26309B4A00E8940A /* PulsatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCAD358C26309B4A00E8940A /* PulsatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		DC40E384262820F90063D1E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC40E387262820F90063D1E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC40E389262820F90063D1E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCAD357E26305BD100E8940A /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		DCAD358326307FD100E8940A /* StartStopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartStopButton.swift; sourceTree = "<group>"; };
+		DCAD3586263087B800E8940A /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		DCAD35892630958500E8940A /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		DCAD358C26309B4A00E8940A /* PulsatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,8 @@
 			isa = PBXGroup;
 			children = (
 				DC9B50F6263032D7007E80C0 /* Controllers */,
+				DCAD358226307DD300E8940A /* Views */,
+				DCAD357D26305BA000E8940A /* Helpers */,
 				DC9B50F7263032E1007E80C0 /* Data models */,
 				DC9B50F5263032C7007E80C0 /* Supporting files */,
 			);
@@ -89,6 +101,25 @@
 				DC40E381262820F80063D1E0 /* Focus.xcdatamodeld */,
 			);
 			path = "Data models";
+			sourceTree = "<group>";
+		};
+		DCAD357D26305BA000E8940A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DCAD357E26305BD100E8940A /* Colors.swift */,
+				DCAD3586263087B800E8940A /* Fonts.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		DCAD358226307DD300E8940A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DCAD358326307FD100E8940A /* StartStopButton.swift */,
+				DCAD35892630958500E8940A /* TimerView.swift */,
+				DCAD358C26309B4A00E8940A /* PulsatingView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,9 +191,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCAD3587263087B800E8940A /* Fonts.swift in Sources */,
+				DCAD358426307FD100E8940A /* StartStopButton.swift in Sources */,
 				DC40E37D262820F80063D1E0 /* TimerVC.swift in Sources */,
+				DCAD357F26305BD100E8940A /* Colors.swift in Sources */,
 				DC40E379262820F80063D1E0 /* AppDelegate.swift in Sources */,
 				DC40E383262820F80063D1E0 /* Focus.xcdatamodeld in Sources */,
+				DCAD358D26309B4A00E8940A /* PulsatingView.swift in Sources */,
+				DCAD358A2630958500E8940A /* TimerView.swift in Sources */,
 				DC40E37B262820F80063D1E0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
