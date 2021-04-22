@@ -20,7 +20,6 @@ class StatsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = Colors.purple
         
         setupConstraints()

@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate: class {
+    func saveSettingsAndUpdateLabels(workTime: Int, shortBreak: Int, longBreak: Int)
+}
+
 class SettingsVC: UIViewController {
+    
+    weak var delegate: SettingsViewControllerDelegate?
     
     private let settingsLabel: UILabel = {
         let label = UILabel()
@@ -84,8 +90,8 @@ class SettingsVC: UIViewController {
     var shortBreakTimeSlider: TimeSlider = {
         let slider = TimeSlider()
         slider.maximumTrackTintColor = Colors.white
-        slider.minimumTrackTintColor = Colors.green
-        slider.thumbTintColor = Colors.green
+        slider.minimumTrackTintColor = Colors.brightGreen
+        slider.thumbTintColor = Colors.brightGreen
         slider.maximumValue = 30
         slider.minimumValue = 1
         slider.value = 5
@@ -96,8 +102,8 @@ class SettingsVC: UIViewController {
     var longBreakTimeSlider: TimeSlider = {
         let slider = TimeSlider()
         slider.maximumTrackTintColor = Colors.white
-        slider.minimumTrackTintColor = Colors.green
-        slider.thumbTintColor = Colors.green
+        slider.minimumTrackTintColor = Colors.brightGreen
+        slider.thumbTintColor = Colors.brightGreen
         slider.maximumValue = 59
         slider.minimumValue = 1
         slider.value = 20
@@ -118,25 +124,51 @@ class SettingsVC: UIViewController {
         view.backgroundColor = Colors.purple
         
         setupConstraints()
+        setupSliders()
     }
     
     @objc private func workTimeValueChanged() {
-        print(workTimeSlider.value)
+        let time = Int(workTimeSlider.value)
+        workTimeLabel.text = "\(time) min"
     }
     
     @objc private func shortBreakTimeValueChanged() {
-        print(shortBreakTimeSlider.value)
+        let time = Int(shortBreakTimeSlider.value)
+        shortBreakTimeLabel.text = "\(time) min"
     }
     
     @objc private func longBreakTimeValueChanged() {
-        print(longBreakTimeSlider.value)
+        let time = Int(longBreakTimeSlider.value)
+        longBreakTimeLabel.text = "\(time) min"
     }
     
     @objc private func saveSettings() {
-        print("data saved")
+        let workTime = Int(workTimeSlider.value) * 60
+        let shortBreak = Int(shortBreakTimeSlider.value) * 60
+        let longBreak = Int(longBreakTimeSlider.value) * 60
+        
+        delegate?.saveSettingsAndUpdateLabels(workTime: workTime, shortBreak: shortBreak, longBreak: longBreak)
+        
         dismiss(animated: true)
     }
     
+    private func setupSliders() {
+        guard UserDefaults.standard.launchedBefore else { return }
+        
+        let workTime = UserDefaults.standard.integer(forKey: Keys.workTime) / 60
+        let shortBreak = UserDefaults.standard.integer(forKey: Keys.shortBreakTime) / 60
+        let longBreak = UserDefaults.standard.integer(forKey: Keys.longBreakTime) / 60
+        
+        workTimeSlider.setValue(Float(workTime), animated: false)
+        shortBreakTimeSlider.setValue(Float(shortBreak), animated: false)
+        longBreakTimeSlider.setValue(Float(longBreak), animated: false)
+        
+        workTimeLabel.text = "\(workTime) min"
+        shortBreakTimeLabel.text = "\(shortBreak) min"
+        longBreakTimeLabel.text = "\(longBreak) min"
+        
+        UserDefaults.standard.launchedBefore = true
+    }
 }
 
 
@@ -186,13 +218,13 @@ extension SettingsVC {
         ])
         
         NSLayoutConstraint.activate([
-            shortBreakTimeSlider.topAnchor.constraint(equalTo: workTimeSlider.bottomAnchor, constant: 90),
+            shortBreakTimeSlider.topAnchor.constraint(equalTo: workTimeSlider.bottomAnchor, constant: 80),
             shortBreakTimeSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             shortBreakTimeSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])
         
         NSLayoutConstraint.activate([
-            longBreakTimeSlider.topAnchor.constraint(equalTo: shortBreakTimeSlider.bottomAnchor, constant: 90),
+            longBreakTimeSlider.topAnchor.constraint(equalTo: shortBreakTimeSlider.bottomAnchor, constant: 80),
             longBreakTimeSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             longBreakTimeSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])

@@ -27,18 +27,17 @@ class StartStopButton: UIButton {
     
     func startTimerButtonAppearance() {
         UIView.transition(with: self, duration: 0.3, options: .curveEaseInOut) {
-            self.backgroundColor = Colors.red
-            self.setTitle("Reset", for: .normal)
+            self.backgroundColor = Colors.green
+            self.setTitle("Start", for: .normal)
         }
     }
     
     func resetTimerButtonAppearance() {
         UIView.transition(with: self, duration: 0.3, options: .curveEaseInOut) {
-            self.backgroundColor = Colors.green.withAlphaComponent(0.8)
-            self.setTitle("Start", for: .normal)
+            self.backgroundColor = Colors.red
+            self.setTitle("Reset", for: .normal)
         }
     }
-    
     
     override var isHighlighted: Bool {
         didSet {

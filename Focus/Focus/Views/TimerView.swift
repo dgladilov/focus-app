@@ -11,7 +11,7 @@ class TimerView: UIView {
     
     let statusLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.setFont(name: Fonts.avenirNextRegular, size: 55)
+        label.font = UIFont.setFont(name: Fonts.avenirNextRegular, size: 50)
         label.textColor = Colors.white
         label.text = "Ready?"
         label.textAlignment = .center
@@ -31,9 +31,7 @@ class TimerView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         backgroundColor = .clear
-        
         setupConstraints()
     }
     
@@ -41,6 +39,48 @@ class TimerView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func startWorkTimer() {
+        textTransition(label: statusLabel, text: "Focus", options: .transitionFlipFromBottom)
+        colorSwitchAnimation(to: Colors.red)
+        pulseView.startPulsating()
+    }
+    
+    func startBreakTimer(withStatus status: String) {
+        textTransition(label: statusLabel, text: status, options: .transitionFlipFromBottom)
+        colorSwitchAnimation(to: Colors.green)
+    }
+    
+    func stopTimer() {
+        textTransition(label: statusLabel, text: "Ready?", options: .transitionFlipFromTop)
+        colorSwitchAnimation(to: Colors.green)
+        pulseView.stopPulsating()
+    }
+    
+    func updateTimerLabel(with value: Int) {
+        timerLabel.text = formatTimeToString(seconds: value)
+    }
+    
+    private func textTransition(label: UILabel, text: String, options: UIView.AnimationOptions) {
+        UIView.transition(with: label, duration: 0.5, options: options) {
+            label.text = text
+        }
+    }
+    
+    private func colorSwitchAnimation(to color: UIColor) {
+        UIView.animate(withDuration: 0.5) {
+            self.pulseView.changeColor(to: color)
+        }
+    }
+    
+    private func formatTimeToString(seconds: Int) -> String {
+        let minutes = seconds / 60
+        let seconds = seconds % 60
+        let time = String(format: "%02d:%02d", minutes, seconds)
+        return time
+    }
+    
+    
+    // MARK: - Setup Constraints
     private func setupConstraints() {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -54,11 +94,11 @@ class TimerView: UIView {
             statusLabel.topAnchor.constraint(equalTo: topAnchor),
             statusLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            statusLabel.heightAnchor.constraint(equalToConstant: 70)
+            statusLabel.heightAnchor.constraint(equalToConstant: 110)
         ])
         
         NSLayoutConstraint.activate([
-            pulseView.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 50),
+            pulseView.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 60),
             pulseView.leadingAnchor.constraint(equalTo: leadingAnchor),
             pulseView.trailingAnchor.constraint(equalTo: trailingAnchor),
             pulseView.heightAnchor.constraint(equalTo: pulseView.widthAnchor)
