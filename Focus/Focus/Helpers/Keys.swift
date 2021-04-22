@@ -1,5 +1,5 @@
 //
-//  User Defaults Keys.swift
+//  Keys.swift
 //  Focus
 //
 //  Created by Dmitry Gladilov on 22.04.2021.

@@ -9,9 +9,9 @@ import UIKit
 
 class TimerVC: UIViewController {
     
-    var timer = TimerModel()
-    var pomodoro = Pomodoro()
-    var timerIsTicking = false
+    private var timer = TimerModel()
+    private var pomodoro = Pomodoro()
+    private var timerIsTicking = false
     
     var settingsButton: UIButton = {
         let button = UIButton()
@@ -63,6 +63,8 @@ class TimerVC: UIViewController {
         checkForFirstLaunch()
         
         timerView.updateTimerLabel(with: pomodoro.workTime)
+        
+        addObservers()
     }
     
     @objc private func startStopTimerBtnPressed() {
@@ -85,6 +87,7 @@ class TimerVC: UIViewController {
                 self.timerView.updateTimerLabel(with: self.pomodoro.workTime)
                 self.startStopButton.startTimerButtonAppearance()
             }
+            removeSavedDate()
         }
     }
     
@@ -206,6 +209,8 @@ extension TimerVC: SettingsViewControllerDelegate {
     func saveSettingsAndUpdateLabels(workTime: Int, shortBreak: Int, longBreak: Int) {
         
         timerView.stopTimer()
+        timer.reset(completion: nil)
+        timerIsTicking = false
         timerView.updateTimerLabel(with: workTime)
         startStopButton.startTimerButtonAppearance()
         
@@ -216,5 +221,45 @@ extension TimerVC: SettingsViewControllerDelegate {
         UserDefaults.standard.setValue( workTime, forKey: Keys.workTime)
         UserDefaults.standard.setValue(shortBreak, forKey: Keys.shortBreakTime)
         UserDefaults.standard.setValue(longBreak, forKey: Keys.longBreakTime)
+    }
+}
+
+
+extension TimerVC {
+    private func addObservers() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(pauseWhenBackground),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(willEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+    }
+    
+    @objc private func pauseWhenBackground() {
+        guard timerIsTicking == true else { return }
+        timerView.pulseView.stopPulsating()
+        timer.reset(completion: nil)
+        let startDate = Date()
+        UserDefaults.standard.setValue(startDate, forKey: Keys.pauseWhenBackgroundDate)
+        print("enter background \(timer.count)")
+    }
+    
+    @objc private func willEnterForeground() {
+        guard timerIsTicking == true else { return }
+        
+        guard let endDate = UserDefaults.standard.value(forKey: "pauseWhenBackgroundDate") as? Date else { return }
+        let difference = Int(Date().timeIntervalSince(endDate))
+        timer.count -= difference
+        timerView.pulseView.startPulsating()
+        timer.start(withUpdate: { self.timerView.updateTimerLabel(with: self.timer.count) },
+                    newTimer: setNewTimerWithUIUpdate)
+    }
+    
+    private func removeSavedDate() {
+        if (UserDefaults.standard.object(forKey: Keys.pauseWhenBackgroundDate) as? Date) != nil {
+            UserDefaults.standard.removeObject(forKey: Keys.pauseWhenBackgroundDate)
+        }
     }
 }
