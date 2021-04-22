@@ -118,25 +118,50 @@ class SettingsVC: UIViewController {
         view.backgroundColor = Colors.purple
         
         setupConstraints()
+        setupSliders()
     }
     
     @objc private func workTimeValueChanged() {
-        print(workTimeSlider.value)
+        let time = Int(workTimeSlider.value)
+        workTimeLabel.text = "\(time) min"
     }
     
     @objc private func shortBreakTimeValueChanged() {
-        print(shortBreakTimeSlider.value)
+        let time = Int(shortBreakTimeSlider.value)
+        shortBreakTimeLabel.text = "\(time) min"
     }
     
     @objc private func longBreakTimeValueChanged() {
-        print(longBreakTimeSlider.value)
+        let time = Int(longBreakTimeSlider.value)
+        longBreakTimeLabel.text = "\(time) min"
     }
     
     @objc private func saveSettings() {
-        print("data saved")
-        dismiss(animated: true)
+        dismiss(animated: true) {
+            UserDefaults.standard.setValue( Int(self.workTimeSlider.value) * 60, forKey: Keys.workTime)
+            UserDefaults.standard.setValue(Int(self.shortBreakTimeSlider.value) * 60, forKey: Keys.shortBreakTime)
+            UserDefaults.standard.setValue(Int(self.longBreakTimeSlider.value) * 60, forKey: Keys.longBreakTime)
+            print("data saved")
+        }
     }
     
+    private func setupSliders() {
+        guard UserDefaults.standard.launchedBefore else { return }
+        
+        let workTime = UserDefaults.standard.integer(forKey: Keys.workTime) / 60
+        let shortBreak = UserDefaults.standard.integer(forKey: Keys.shortBreakTime) / 60
+        let longBreak = UserDefaults.standard.integer(forKey: Keys.longBreakTime) / 60
+        
+        workTimeSlider.setValue(Float(workTime), animated: false)
+        shortBreakTimeSlider.setValue(Float(shortBreak), animated: false)
+        longBreakTimeSlider.setValue(Float(longBreak), animated: false)
+        
+        workTimeLabel.text = "\(workTime) min"
+        shortBreakTimeLabel.text = "\(shortBreak) min"
+        longBreakTimeLabel.text = "\(longBreak) min"
+        
+        UserDefaults.standard.launchedBefore = true
+    }
 }
 
 

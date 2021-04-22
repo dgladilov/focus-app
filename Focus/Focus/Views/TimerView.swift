@@ -9,9 +9,12 @@ import UIKit
 
 class TimerView: UIView {
     
+    var pomodoro = Pomodoro()
+    private var count = 0
+    
     let statusLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.setFont(name: Fonts.avenirNextRegular, size: 55)
+        label.font = UIFont.setFont(name: Fonts.avenirNextRegular, size: 50)
         label.textColor = Colors.white
         label.text = "Ready?"
         label.textAlignment = .center
@@ -35,10 +38,65 @@ class TimerView: UIView {
         backgroundColor = .clear
         
         setupConstraints()
+        
+        checkForFirstLaunch()
+        print("\(pomodoro.workTime), \(pomodoro.shortBreak), \(pomodoro.longBreak)")
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func startWorkTimer() {
+        textTransition(label: statusLabel, text: "Focus", options: .transitionFlipFromBottom)
+        colorSwitchAnimation(to: Colors.red)
+        pulseView.startPulsating()
+    }
+    
+    func startBreakTimer(withStatus status: String) {
+        textTransition(label: statusLabel, text: status, options: .transitionFlipFromBottom)
+        colorSwitchAnimation(to: Colors.green)
+    }
+    
+    func stopTimer() {
+        textTransition(label: statusLabel, text: "Ready?", options: .transitionFlipFromTop)
+        colorSwitchAnimation(to: Colors.green)
+        pulseView.stopPulsating()
+    }
+    
+    private func textTransition(label: UILabel, text: String, options: UIView.AnimationOptions) {
+        UIView.transition(with: label, duration: 0.5, options: options) {
+            label.text = text
+        }
+    }
+    
+    private func colorSwitchAnimation(to color: UIColor) {
+        UIView.animate(withDuration: 0.5) {
+            self.pulseView.changeColor(to: color)
+        }
+    }
+    
+    private func formatTimeToString(seconds: Int) -> String {
+        let minutes = seconds / 60
+        let seconds = seconds % 60
+        let time = String(format: "%02d:%02d", minutes, seconds)
+        return time
+    }
+    
+    func checkForFirstLaunch() {
+        if !UserDefaults.standard.launchedBefore {
+            UserDefaults.standard.setValue(pomodoro.workTime, forKey: Keys.workTime)
+            UserDefaults.standard.setValue(pomodoro.shortBreak, forKey: Keys.shortBreakTime)
+            UserDefaults.standard.setValue(pomodoro.longBreak, forKey: Keys.longBreakTime)
+        } else {
+            guard UserDefaults.standard.value(forKey: Keys.workTime) != nil,
+                  UserDefaults.standard.value(forKey: Keys.shortBreakTime) != nil,
+                  UserDefaults.standard.value(forKey: Keys.longBreakTime) != nil
+            else { return}
+            pomodoro.fetchStoredValues()
+        }
+        
+        UserDefaults.standard.launchedBefore = true
     }
     
     private func setupConstraints() {
@@ -54,11 +112,11 @@ class TimerView: UIView {
             statusLabel.topAnchor.constraint(equalTo: topAnchor),
             statusLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            statusLabel.heightAnchor.constraint(equalToConstant: 120)
+            statusLabel.heightAnchor.constraint(equalToConstant: 110)
         ])
         
         NSLayoutConstraint.activate([
-            pulseView.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 50),
+            pulseView.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 60),
             pulseView.leadingAnchor.constraint(equalTo: leadingAnchor),
             pulseView.trailingAnchor.constraint(equalTo: trailingAnchor),
             pulseView.heightAnchor.constraint(equalTo: pulseView.widthAnchor)

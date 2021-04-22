@@ -67,11 +67,11 @@ class TimerVC: UIViewController {
     @objc private func startStopTimerBtnPressed() {
         if !timerIsTicking {
             startStopButton.startTimerButtonAppearance()
-            timerView.pulseView.startPulsating()
+            timerView.startWorkTimer()
             timerIsTicking.toggle()
         } else {
             startStopButton.resetTimerButtonAppearance()
-            timerView.pulseView.stopPulsating()
+            timerView.stopTimer()
             timerIsTicking.toggle()
         }
     }
@@ -85,13 +85,15 @@ class TimerVC: UIViewController {
         let statsVC = StatsVC()
         present(statsVC, animated: true, completion: nil)
     }
-
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
 
 // MARK: - Setup Constraints
 extension TimerVC {
-    
     private func setupConstraints() {
         timerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -136,7 +138,6 @@ extension TimerVC {
             startStopButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
 }
 
 
@@ -145,9 +146,5 @@ extension TimerVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
     }
 }
