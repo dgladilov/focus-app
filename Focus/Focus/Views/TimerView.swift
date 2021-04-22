@@ -9,9 +9,6 @@ import UIKit
 
 class TimerView: UIView {
     
-    var pomodoro = Pomodoro()
-    private var count = 0
-    
     let statusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.setFont(name: Fonts.avenirNextRegular, size: 50)
@@ -34,13 +31,8 @@ class TimerView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         backgroundColor = .clear
-        
         setupConstraints()
-        
-        checkForFirstLaunch()
-        print("\(pomodoro.workTime), \(pomodoro.shortBreak), \(pomodoro.longBreak)")
     }
     
     required init?(coder: NSCoder) {
@@ -64,6 +56,10 @@ class TimerView: UIView {
         pulseView.stopPulsating()
     }
     
+    func updateTimerLabel(with value: Int) {
+        timerLabel.text = formatTimeToString(seconds: value)
+    }
+    
     private func textTransition(label: UILabel, text: String, options: UIView.AnimationOptions) {
         UIView.transition(with: label, duration: 0.5, options: options) {
             label.text = text
@@ -83,22 +79,8 @@ class TimerView: UIView {
         return time
     }
     
-    func checkForFirstLaunch() {
-        if !UserDefaults.standard.launchedBefore {
-            UserDefaults.standard.setValue(pomodoro.workTime, forKey: Keys.workTime)
-            UserDefaults.standard.setValue(pomodoro.shortBreak, forKey: Keys.shortBreakTime)
-            UserDefaults.standard.setValue(pomodoro.longBreak, forKey: Keys.longBreakTime)
-        } else {
-            guard UserDefaults.standard.value(forKey: Keys.workTime) != nil,
-                  UserDefaults.standard.value(forKey: Keys.shortBreakTime) != nil,
-                  UserDefaults.standard.value(forKey: Keys.longBreakTime) != nil
-            else { return}
-            pomodoro.fetchStoredValues()
-        }
-        
-        UserDefaults.standard.launchedBefore = true
-    }
     
+    // MARK: - Setup Constraints
     private func setupConstraints() {
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         timerLabel.translatesAutoresizingMaskIntoConstraints = false

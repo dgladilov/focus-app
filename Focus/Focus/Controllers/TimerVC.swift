@@ -9,6 +9,8 @@ import UIKit
 
 class TimerVC: UIViewController {
     
+    var timer = TimerModel()
+    var pomodoro = Pomodoro()
     var timerIsTicking = false
     
     var settingsButton: UIButton = {
@@ -56,12 +58,11 @@ class TimerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Colors.purple
-        
-        taskTextField.delegate = self
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
         setupConstraints()
+        setupTextField()
+        checkForFirstLaunch()
+        
+        timerView.updateTimerLabel(with: pomodoro.workTime)
     }
     
     @objc private func startStopTimerBtnPressed() {
@@ -78,6 +79,7 @@ class TimerVC: UIViewController {
     
     @objc private func presentSettings() {
         let settingsVC = SettingsVC()
+        settingsVC.delegate = self
         present(settingsVC, animated: true, completion: nil)
     }
     
@@ -88,6 +90,24 @@ class TimerVC: UIViewController {
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    private func checkForFirstLaunch() {
+        if !UserDefaults.standard.launchedBefore {
+            UserDefaults.standard.setValue(pomodoro.workTime, forKey: Keys.workTime)
+            UserDefaults.standard.setValue(pomodoro.shortBreak, forKey: Keys.shortBreakTime)
+            UserDefaults.standard.setValue(pomodoro.longBreak, forKey: Keys.longBreakTime)
+            print("set default values")
+        } else {
+            guard UserDefaults.standard.value(forKey: Keys.workTime) != nil,
+                  UserDefaults.standard.value(forKey: Keys.shortBreakTime) != nil,
+                  UserDefaults.standard.value(forKey: Keys.longBreakTime) != nil
+            else { return}
+            pomodoro.fetchStoredValues()
+            print("fetched stored values")
+        }
+        
+        UserDefaults.standard.launchedBefore = true
     }
 }
 
@@ -141,10 +161,31 @@ extension TimerVC {
 }
 
 
-// MARK: Text Field Delegate
+// MARK: Setup Text Field + Delegate
 extension TimerVC: UITextFieldDelegate {
+    private func setupTextField() {
+        taskTextField.delegate = self
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+
+// MARK: - SettingsVC Delegate
+extension TimerVC: SettingsViewControllerDelegate {
+    func saveSettingsAndUpdateLabels(workTime: Int, shortBreak: Int, longBreak: Int) {
+        
+        timerView.stopTimer()
+        timerView.updateTimerLabel(with: workTime)
+        startStopButton.resetTimerButtonAppearance()
+        
+        UserDefaults.standard.setValue( workTime, forKey: Keys.workTime)
+        UserDefaults.standard.setValue(shortBreak, forKey: Keys.shortBreakTime)
+        UserDefaults.standard.setValue(longBreak, forKey: Keys.longBreakTime)
     }
 }

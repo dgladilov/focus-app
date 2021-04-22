@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate: class {
+    func saveSettingsAndUpdateLabels(workTime: Int, shortBreak: Int, longBreak: Int)
+}
+
 class SettingsVC: UIViewController {
+    
+    weak var delegate: SettingsViewControllerDelegate?
     
     private let settingsLabel: UILabel = {
         let label = UILabel()
@@ -137,12 +143,13 @@ class SettingsVC: UIViewController {
     }
     
     @objc private func saveSettings() {
-        dismiss(animated: true) {
-            UserDefaults.standard.setValue( Int(self.workTimeSlider.value) * 60, forKey: Keys.workTime)
-            UserDefaults.standard.setValue(Int(self.shortBreakTimeSlider.value) * 60, forKey: Keys.shortBreakTime)
-            UserDefaults.standard.setValue(Int(self.longBreakTimeSlider.value) * 60, forKey: Keys.longBreakTime)
-            print("data saved")
-        }
+        let workTime = Int(workTimeSlider.value) * 60
+        let shortBreak = Int(shortBreakTimeSlider.value) * 60
+        let longBreak = Int(longBreakTimeSlider.value) * 60
+        
+        delegate?.saveSettingsAndUpdateLabels(workTime: workTime, shortBreak: shortBreak, longBreak: longBreak)
+        
+        dismiss(animated: true)
     }
     
     private func setupSliders() {
