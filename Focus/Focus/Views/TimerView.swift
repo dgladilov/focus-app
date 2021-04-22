@@ -54,7 +54,7 @@ class TimerView: UIView {
             statusLabel.topAnchor.constraint(equalTo: topAnchor),
             statusLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             statusLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            statusLabel.heightAnchor.constraint(equalToConstant: 70)
+            statusLabel.heightAnchor.constraint(equalToConstant: 120)
         ])
         
         NSLayoutConstraint.activate([

@@ -84,8 +84,8 @@ class SettingsVC: UIViewController {
     var shortBreakTimeSlider: TimeSlider = {
         let slider = TimeSlider()
         slider.maximumTrackTintColor = Colors.white
-        slider.minimumTrackTintColor = Colors.green
-        slider.thumbTintColor = Colors.green
+        slider.minimumTrackTintColor = Colors.brightGreen
+        slider.thumbTintColor = Colors.brightGreen
         slider.maximumValue = 30
         slider.minimumValue = 1
         slider.value = 5
@@ -96,8 +96,8 @@ class SettingsVC: UIViewController {
     var longBreakTimeSlider: TimeSlider = {
         let slider = TimeSlider()
         slider.maximumTrackTintColor = Colors.white
-        slider.minimumTrackTintColor = Colors.green
-        slider.thumbTintColor = Colors.green
+        slider.minimumTrackTintColor = Colors.brightGreen
+        slider.thumbTintColor = Colors.brightGreen
         slider.maximumValue = 59
         slider.minimumValue = 1
         slider.value = 20
@@ -186,13 +186,13 @@ extension SettingsVC {
         ])
         
         NSLayoutConstraint.activate([
-            shortBreakTimeSlider.topAnchor.constraint(equalTo: workTimeSlider.bottomAnchor, constant: 90),
+            shortBreakTimeSlider.topAnchor.constraint(equalTo: workTimeSlider.bottomAnchor, constant: 80),
             shortBreakTimeSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             shortBreakTimeSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])
         
         NSLayoutConstraint.activate([
-            longBreakTimeSlider.topAnchor.constraint(equalTo: shortBreakTimeSlider.bottomAnchor, constant: 90),
+            longBreakTimeSlider.topAnchor.constraint(equalTo: shortBreakTimeSlider.bottomAnchor, constant: 80),
             longBreakTimeSlider.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             longBreakTimeSlider.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])

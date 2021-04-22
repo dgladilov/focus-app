@@ -74,6 +74,7 @@
 			children = (
 				DC9B50F6263032D7007E80C0 /* Controllers */,
 				DCAD358226307DD300E8940A /* Views */,
+				DC9D437426317E3F007C9673 /* Extensions */,
 				DCAD357D26305BA000E8940A /* Helpers */,
 				DC9B50F7263032E1007E80C0 /* Data models */,
 				DC9B50F5263032C7007E80C0 /* Supporting files */,
@@ -109,6 +110,13 @@
 				DC40E381262820F80063D1E0 /* Focus.xcdatamodeld */,
 			);
 			path = "Data models";
+			sourceTree = "<group>";
+		};
+		DC9D437426317E3F007C9673 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		DCAD357D26305BA000E8940A /* Helpers */ = {

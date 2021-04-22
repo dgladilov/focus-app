@@ -27,12 +27,23 @@ class TimerVC: UIViewController {
         return button
     }()
     
+    var taskTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.borderStyle = .none
+        textField.textAlignment = .center
+        textField.font = UIFont.setFont(name: Fonts.avenirNextItalic, size: 21)
+        textField.textColor = Colors.white
+        textField.attributedPlaceholder = NSAttributedString(string:"Type your task name", attributes:[NSAttributedString.Key.foregroundColor: Colors.white.withAlphaComponent(0.7)])
+        return textField
+    }()
+    
     var timerView = TimerView()
     
     var startStopButton: StartStopButton = {
         let button = StartStopButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = Colors.green.withAlphaComponent(0.8)
+        button.backgroundColor = Colors.green
         button.setTitle("Start", for: .normal)
         button.addTarget(self, action: #selector(startStopTimerBtnPressed), for: .touchUpInside)
         return button
@@ -46,15 +57,21 @@ class TimerVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Colors.purple
         
+        taskTextField.delegate = self
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         setupConstraints()
     }
     
     @objc private func startStopTimerBtnPressed() {
         if !timerIsTicking {
             startStopButton.startTimerButtonAppearance()
+            timerView.pulseView.startPulsating()
             timerIsTicking.toggle()
         } else {
             startStopButton.resetTimerButtonAppearance()
+            timerView.pulseView.stopPulsating()
             timerIsTicking.toggle()
         }
     }
@@ -81,6 +98,7 @@ extension TimerVC {
         view.addSubview(settingsButton)
         view.addSubview(statsButton)
         view.addSubview(timerView)
+        view.addSubview(taskTextField)
         view.addSubview(startStopButton)
         
         NSLayoutConstraint.activate([
@@ -99,9 +117,16 @@ extension TimerVC {
         
         NSLayoutConstraint.activate([
             timerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+            timerView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -130),
             timerView.widthAnchor.constraint(equalToConstant: view.frame.width - 100),
             timerView.heightAnchor.constraint(equalToConstant: 300),
+        ])
+        
+        NSLayoutConstraint.activate([
+            taskTextField.topAnchor.constraint(equalTo: timerView.topAnchor, constant: 100),
+            taskTextField.leadingAnchor.constraint(equalTo: timerView.leadingAnchor),
+            taskTextField.trailingAnchor.constraint(equalTo: timerView.trailingAnchor),
+            taskTextField.heightAnchor.constraint(equalToConstant: 25)
         ])
         
         NSLayoutConstraint.activate([
@@ -112,4 +137,17 @@ extension TimerVC {
         ])
     }
     
+}
+
+
+// MARK: Text Field Delegate
+extension TimerVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
