@@ -74,7 +74,6 @@ class TimerVC: UIViewController {
 
 // MARK: - Setup Constraints
 extension TimerVC {
-    
     private func setupConstraints() {
         timerView.translatesAutoresizingMaskIntoConstraints = false
         
