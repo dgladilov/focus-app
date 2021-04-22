@@ -9,20 +9,29 @@ import Foundation
 
 class TimerModel {
     
-    private var timer = Timer()
+    var timer = Timer()
     var count = 0
-    var reps = 0
+    var reps = 1
     
-    func start(action: (() -> Void)?) {
+    func start(withUpdate action: (() -> Void)?, newTimer: @escaping () -> Void) {
         
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
             guard let action = action else { return }
+            self.count -= 1
             action()
+            
+            if self.count <= 0 {
+                timer.invalidate()
+                self.reps += 1
+                newTimer()
+                self.start(withUpdate: action, newTimer: newTimer)
+            }
         })
     }
     
-    func reset(completion: () -> Void) {
+    func reset(completion: (() -> Void)?) {
         timer.invalidate()
+        guard let completion = completion else { return }
         completion()
     }
 }

@@ -67,13 +67,24 @@ class TimerVC: UIViewController {
     
     @objc private func startStopTimerBtnPressed() {
         if !timerIsTicking {
-            startStopButton.startTimerButtonAppearance()
+            startStopButton.resetTimerButtonAppearance()
             timerView.startWorkTimer()
             timerIsTicking.toggle()
+            
+            timer.count = pomodoro.workTime
+            timer.start(withUpdate: { self.timerView.updateTimerLabel(with: self.timer.count) },
+                        newTimer: setNewTimerWithUIUpdate)
+            
         } else {
-            startStopButton.resetTimerButtonAppearance()
+            startStopButton.startTimerButtonAppearance()
             timerView.stopTimer()
             timerIsTicking.toggle()
+            
+            timer.reset {
+                self.timerView.stopTimer()
+                self.timerView.updateTimerLabel(with: self.pomodoro.workTime)
+                self.startStopButton.startTimerButtonAppearance()
+            }
         }
     }
     
@@ -108,6 +119,20 @@ class TimerVC: UIViewController {
         }
         
         UserDefaults.standard.launchedBefore = true
+    }
+    
+    private func setNewTimerWithUIUpdate() {
+        print(timer.reps)
+        if timer.reps % 8 == 0 {
+            timer.count = pomodoro.longBreak
+            timerView.startBreakTimer(withStatus: "Long break")
+        } else if timer.reps % 2 == 0 {
+            timer.count = pomodoro.shortBreak
+            timerView.startBreakTimer(withStatus: "Short break")
+        } else {
+            timer.count = pomodoro.workTime
+            timerView.startWorkTimer()
+        }
     }
 }
 
@@ -182,7 +207,11 @@ extension TimerVC: SettingsViewControllerDelegate {
         
         timerView.stopTimer()
         timerView.updateTimerLabel(with: workTime)
-        startStopButton.resetTimerButtonAppearance()
+        startStopButton.startTimerButtonAppearance()
+        
+        pomodoro.workTime = workTime
+        pomodoro.shortBreak = shortBreak
+        pomodoro.longBreak = longBreak
         
         UserDefaults.standard.setValue( workTime, forKey: Keys.workTime)
         UserDefaults.standard.setValue(shortBreak, forKey: Keys.shortBreakTime)
