@@ -9,6 +9,7 @@ import UIKit
 
 class TimerVC: UIViewController {
     
+    var task = Task()
     private var timer = TimerModel()
     private var pomodoro = Pomodoro()
     private var timerIsTicking = false
@@ -69,13 +70,21 @@ class TimerVC: UIViewController {
     
     @objc private func startStopTimerBtnPressed() {
         if !timerIsTicking {
+            // UI Update
             startStopButton.resetTimerButtonAppearance()
             timerView.startWorkTimer()
             timerIsTicking.toggle()
             
+            task.date = Date()
+            
             timer.count = pomodoro.workTime
-            timer.start(withUpdate: { self.timerView.updateTimerLabel(with: self.timer.count) },
-                        newTimer: setNewTimerWithUIUpdate)
+            timer.start(
+                withUpdate: {
+                    self.timerView.updateTimerLabel(with: self.timer.count)
+                    self.task.time += 1
+                },
+                newTimer: setNewTimerWithUIUpdate
+            )
             
         } else {
             startStopButton.startTimerButtonAppearance()
@@ -88,6 +97,18 @@ class TimerVC: UIViewController {
                 self.startStopButton.startTimerButtonAppearance()
             }
             removeSavedDate()
+            
+            // Task Save
+            if let taskName = taskTextField.text, taskName != "" {
+                task.taskName = taskName
+            } else {
+                task.taskName = "Very important task"
+            }
+            print(task.taskName)
+            CoreDataStack.shared.saveData(forTask: task)
+            
+            // Clear text field
+            taskTextField.text = ""
         }
     }
     
@@ -134,6 +155,7 @@ class TimerVC: UIViewController {
             timerView.startBreakTimer(withStatus: "Short break")
         } else {
             timer.count = pomodoro.workTime
+            task.rounds += 1
             timerView.startWorkTimer()
         }
     }
@@ -225,6 +247,7 @@ extension TimerVC: SettingsViewControllerDelegate {
 }
 
 
+// MARK: - Notification Center Observers
 extension TimerVC {
     private func addObservers() {
         NotificationCenter.default.addObserver(self,
@@ -263,3 +286,4 @@ extension TimerVC {
         }
     }
 }
+

@@ -13,6 +13,10 @@
 		DC40E383262820F80063D1E0 /* Focus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC40E381262820F80063D1E0 /* Focus.xcdatamodeld */; };
 		DC40E385262820F90063D1E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC40E384262820F90063D1E0 /* Assets.xcassets */; };
 		DC40E388262820F90063D1E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC40E386262820F90063D1E0 /* LaunchScreen.storyboard */; };
+		DC582AAE2633052000C71EAE /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582AAD2633052000C71EAE /* Task.swift */; };
+		DC582ABA263316F500C71EAE /* TaskModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582AB8263316F500C71EAE /* TaskModel+CoreDataClass.swift */; };
+		DC582ABB263316F500C71EAE /* TaskModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582AB9263316F500C71EAE /* TaskModel+CoreDataProperties.swift */; };
+		DC582ABE2633176600C71EAE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582ABD2633176600C71EAE /* CoreDataStack.swift */; };
 		DC9D437E2631A2AE007C9673 /* Pomodoro.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D437D2631A2AE007C9673 /* Pomodoro.swift */; };
 		DC9D439F2631B57D007C9673 /* UseerDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D439E2631B57D007C9673 /* UseerDefaults + Extension.swift */; };
 		DC9D43A42631B6FD007C9673 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D43A32631B6FD007C9673 /* Keys.swift */; };
@@ -36,6 +40,10 @@
 		DC40E384262820F90063D1E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC40E387262820F90063D1E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC40E389262820F90063D1E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC582AAD2633052000C71EAE /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		DC582AB8263316F500C71EAE /* TaskModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskModel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DC582AB9263316F500C71EAE /* TaskModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DC582ABD2633176600C71EAE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		DC9D437D2631A2AE007C9673 /* Pomodoro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pomodoro.swift; sourceTree = "<group>"; };
 		DC9D439E2631B57D007C9673 /* UseerDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UseerDefaults + Extension.swift"; sourceTree = "<group>"; };
 		DC9D43A32631B6FD007C9673 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -116,6 +124,8 @@
 		DC9B50F7263032E1007E80C0 /* Data models */ = {
 			isa = PBXGroup;
 			children = (
+				DC582AB8263316F500C71EAE /* TaskModel+CoreDataClass.swift */,
+				DC582AB9263316F500C71EAE /* TaskModel+CoreDataProperties.swift */,
 				DC40E381262820F80063D1E0 /* Focus.xcdatamodeld */,
 			);
 			path = "Data models";
@@ -126,6 +136,8 @@
 			children = (
 				DC9D437D2631A2AE007C9673 /* Pomodoro.swift */,
 				DC9D43A62631E4B8007C9673 /* TimerModel.swift */,
+				DC582AAD2633052000C71EAE /* Task.swift */,
+				DC582ABD2633176600C71EAE /* CoreDataStack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,9 +252,13 @@
 				DC9D439F2631B57D007C9673 /* UseerDefaults + Extension.swift in Sources */,
 				DCAD35962630C37500E8940A /* TimeSlider.swift in Sources */,
 				DCAD35992630C69700E8940A /* StatsVC.swift in Sources */,
+				DC582ABB263316F500C71EAE /* TaskModel+CoreDataProperties.swift in Sources */,
 				DC9D43A42631B6FD007C9673 /* Keys.swift in Sources */,
 				DCAD358A2630958500E8940A /* TimerView.swift in Sources */,
+				DC582ABE2633176600C71EAE /* CoreDataStack.swift in Sources */,
+				DC582ABA263316F500C71EAE /* TaskModel+CoreDataClass.swift in Sources */,
 				DC40E37B262820F80063D1E0 /* SceneDelegate.swift in Sources */,
+				DC582AAE2633052000C71EAE /* Task.swift in Sources */,
 				DCAD35922630B7F200E8940A /* SettingsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
