@@ -15,7 +15,7 @@ class TimerModel {
     
     func start(withUpdate action: (() -> Void)?, newTimer: @escaping () -> Void) {
         
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (timer) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { (timer) in
             guard let action = action else { return }
             self.count -= 1
             action()

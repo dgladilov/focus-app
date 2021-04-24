@@ -56,4 +56,32 @@ class CoreDataStack {
             print(error.localizedDescription)
         }
     }
+    
+    func fetchData(completion: ([TaskModel]) -> Void) {
+        let managedContext = persistentContainer.viewContext
+        do {
+            let request: NSFetchRequest<TaskModel> = TaskModel.fetchRequest()
+            let sort = NSSortDescriptor(key: "date", ascending: false)
+            request.sortDescriptors = [sort]
+            
+            let tasks = try managedContext.fetch(request)
+            
+            completion(tasks)
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func deleteTask(_ task: TaskModel) {
+        let managedContext = CoreDataStack.shared.persistentContainer.viewContext
+        managedContext.delete(task)
+        
+        do {
+            try managedContext.save()
+        }
+        catch let error {
+            print(error.localizedDescription)
+        }
+    }
 }

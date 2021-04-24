@@ -9,7 +9,7 @@ import Foundation
 
 struct Task {
     var taskName = ""
-    var rounds = 0
+    var rounds = 1
     var time = 0
     var date = Date()
 }

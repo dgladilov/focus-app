@@ -35,7 +35,7 @@ class TimerVC: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .none
         textField.textAlignment = .center
-        textField.font = UIFont.setFont(name: Fonts.avenirNextItalic, size: 21)
+        textField.font = UIFont.setFont(name: Fonts.avenirNextItalic, size: 19)
         textField.textColor = Colors.white
         textField.attributedPlaceholder = NSAttributedString(string:"Type your task name", attributes:[NSAttributedString.Key.foregroundColor: Colors.white.withAlphaComponent(0.7)])
         return textField
@@ -75,8 +75,10 @@ class TimerVC: UIViewController {
             timerView.startWorkTimer()
             timerIsTicking.toggle()
             
+            // Set the task date
             task.date = Date()
             
+            // Setup and start the timer
             timer.count = pomodoro.workTime
             timer.start(
                 withUpdate: {
@@ -87,28 +89,30 @@ class TimerVC: UIViewController {
             )
             
         } else {
+            // UIUpdate
             startStopButton.startTimerButtonAppearance()
             timerView.stopTimer()
             timerIsTicking.toggle()
             
+            // Reset timer
             timer.reset {
                 self.timerView.stopTimer()
                 self.timerView.updateTimerLabel(with: self.pomodoro.workTime)
                 self.startStopButton.startTimerButtonAppearance()
             }
-            removeSavedDate()
+            removeSavedDate() /// background date
             
-            // Task Save
+            // Task Saving
             if let taskName = taskTextField.text, taskName != "" {
                 task.taskName = taskName
             } else {
                 task.taskName = "Very important task"
             }
-            print(task.taskName)
             CoreDataStack.shared.saveData(forTask: task)
             
-            // Clear text field
+            // Clear task stats
             taskTextField.text = ""
+            task = Task()
         }
     }
     
@@ -146,7 +150,6 @@ class TimerVC: UIViewController {
     }
     
     private func setNewTimerWithUIUpdate() {
-        print(timer.reps)
         if timer.reps % 8 == 0 {
             timer.count = pomodoro.longBreak
             timerView.startBreakTimer(withStatus: "Long break")
@@ -154,8 +157,8 @@ class TimerVC: UIViewController {
             timer.count = pomodoro.shortBreak
             timerView.startBreakTimer(withStatus: "Short break")
         } else {
-            timer.count = pomodoro.workTime
             task.rounds += 1
+            timer.count = pomodoro.workTime
             timerView.startWorkTimer()
         }
     }
@@ -195,7 +198,7 @@ extension TimerVC {
         ])
         
         NSLayoutConstraint.activate([
-            taskTextField.topAnchor.constraint(equalTo: timerView.topAnchor, constant: 100),
+            taskTextField.topAnchor.constraint(equalTo: timerView.topAnchor, constant: 105),
             taskTextField.leadingAnchor.constraint(equalTo: timerView.leadingAnchor),
             taskTextField.trailingAnchor.constraint(equalTo: timerView.trailingAnchor),
             taskTextField.heightAnchor.constraint(equalToConstant: 25)
