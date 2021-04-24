@@ -155,7 +155,7 @@ class TimerVC: UIViewController {
             timerView.startBreakTimer(withStatus: "Long break")
         } else if timer.reps % 2 == 0 {
             timer.count = pomodoro.shortBreak
-            timerView.startBreakTimer(withStatus: "Short break")
+            timerView.startBreakTimer(withStatus: "Break")
         } else {
             task.rounds += 1
             timer.count = pomodoro.workTime

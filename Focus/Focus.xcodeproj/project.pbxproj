@@ -19,6 +19,9 @@
 		DC582ABE2633176600C71EAE /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582ABD2633176600C71EAE /* CoreDataStack.swift */; };
 		DC582AC226344D7B00C71EAE /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582AC126344D7B00C71EAE /* GraphView.swift */; };
 		DC582AC626345A3D00C71EAE /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582AC526345A3D00C71EAE /* TaskCell.swift */; };
+		DC582ACB2634779D00C71EAE /* TasksTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582ACA2634779D00C71EAE /* TasksTableViewHeader.swift */; };
+		DC582ACE2634A99B00C71EAE /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582ACD2634A99B00C71EAE /* SwitchButton.swift */; };
+		DC582AD22634C5EC00C71EAE /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582AD12634C5EC00C71EAE /* String + Extension.swift */; };
 		DC9D437E2631A2AE007C9673 /* Pomodoro.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D437D2631A2AE007C9673 /* Pomodoro.swift */; };
 		DC9D439F2631B57D007C9673 /* UseerDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D439E2631B57D007C9673 /* UseerDefaults + Extension.swift */; };
 		DC9D43A42631B6FD007C9673 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D43A32631B6FD007C9673 /* Keys.swift */; };
@@ -48,6 +51,9 @@
 		DC582ABD2633176600C71EAE /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		DC582AC126344D7B00C71EAE /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		DC582AC526345A3D00C71EAE /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
+		DC582ACA2634779D00C71EAE /* TasksTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewHeader.swift; sourceTree = "<group>"; };
+		DC582ACD2634A99B00C71EAE /* SwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
+		DC582AD12634C5EC00C71EAE /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 		DC9D437D2631A2AE007C9673 /* Pomodoro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pomodoro.swift; sourceTree = "<group>"; };
 		DC9D439E2631B57D007C9673 /* UseerDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UseerDefaults + Extension.swift"; sourceTree = "<group>"; };
 		DC9D43A32631B6FD007C9673 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -150,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				DC9D439E2631B57D007C9673 /* UseerDefaults + Extension.swift */,
+				DC582AD12634C5EC00C71EAE /* String + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -168,11 +175,13 @@
 			isa = PBXGroup;
 			children = (
 				DCAD35892630958500E8940A /* TimerView.swift */,
+				DC582AC126344D7B00C71EAE /* GraphView.swift */,
 				DCAD358326307FD100E8940A /* StartStopButton.swift */,
 				DCAD358C26309B4A00E8940A /* PulsatingView.swift */,
 				DCAD35952630C37500E8940A /* TimeSlider.swift */,
-				DC582AC126344D7B00C71EAE /* GraphView.swift */,
 				DC582AC526345A3D00C71EAE /* TaskCell.swift */,
+				DC582ACA2634779D00C71EAE /* TasksTableViewHeader.swift */,
+				DC582ACD2634A99B00C71EAE /* SwitchButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -258,6 +267,7 @@
 				DCAD358D26309B4A00E8940A /* PulsatingView.swift in Sources */,
 				DC9D439F2631B57D007C9673 /* UseerDefaults + Extension.swift in Sources */,
 				DCAD35962630C37500E8940A /* TimeSlider.swift in Sources */,
+				DC582AD22634C5EC00C71EAE /* String + Extension.swift in Sources */,
 				DCAD35992630C69700E8940A /* StatsVC.swift in Sources */,
 				DC582ABB263316F500C71EAE /* TaskModel+CoreDataProperties.swift in Sources */,
 				DC9D43A42631B6FD007C9673 /* Keys.swift in Sources */,
@@ -265,9 +275,11 @@
 				DC582ABE2633176600C71EAE /* CoreDataStack.swift in Sources */,
 				DC582ABA263316F500C71EAE /* TaskModel+CoreDataClass.swift in Sources */,
 				DC582AC626345A3D00C71EAE /* TaskCell.swift in Sources */,
+				DC582ACE2634A99B00C71EAE /* SwitchButton.swift in Sources */,
 				DC40E37B262820F80063D1E0 /* SceneDelegate.swift in Sources */,
 				DC582AAE2633052000C71EAE /* Task.swift in Sources */,
 				DCAD35922630B7F200E8940A /* SettingsVC.swift in Sources */,
+				DC582ACB2634779D00C71EAE /* TasksTableViewHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

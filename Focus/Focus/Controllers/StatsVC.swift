@@ -9,6 +9,8 @@ import UIKit
 
 class StatsVC: UIViewController {
     
+    private var showHours = false
+    
     private var tasks = [TaskModel]()
     
     private let statsLabel: UILabel = {
@@ -20,11 +22,17 @@ class StatsVC: UIViewController {
         return label
     }()
     
-    private var graphView: GraphView = {
-        let view = GraphView()
-        
-        view.backgroundColor = .white
-        return view
+    private var graphView = GraphView()
+    
+    private var switchAxisLabelsButton: SwitchButton = {
+        let button = SwitchButton()
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = Colors.white.cgColor
+        button.addTarget(self, action: #selector(axisLabelsSwitched), for: .touchUpInside)
+        button.setTitle("Show hours", for: .normal)
+        button.titleLabel?.font = UIFont.setFont(name: Fonts.avenirNextRegular, size: 14)
+        return button
     }()
     
     private var tableView = UITableView()
@@ -39,15 +47,32 @@ class StatsVC: UIViewController {
             self.tasks = taskArray
         }
         
+        graphView.backgroundColor = .clear
         setupTableView()
+        setupGraphView()
         
         tableView.reloadData()
+    }
+    
+    @objc private func axisLabelsSwitched() {
+        if !showHours {
+            graphView.setupStackViewWithHours()
+            UIView.transition(with: switchAxisLabelsButton, duration: 0.25, options: .transitionFlipFromBottom) {
+                self.switchAxisLabelsButton.setTitle("Show dates", for: .normal)
+            }
+            showHours.toggle()
+        } else {
+            setupGraphView()
+            UIView.transition(with: switchAxisLabelsButton, duration: 0.25, options: .transitionFlipFromBottom) {
+                self.switchAxisLabelsButton.setTitle("Show hours", for: .normal)
+            }
+            showHours.toggle()
+        }
     }
     
     private func setupTableView() {
         tableView.backgroundColor = .clear
         tableView.allowsSelection = false
-//        tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         
         tableView.delegate = self
@@ -55,8 +80,15 @@ class StatsVC: UIViewController {
         tableView.allowsSelection = false
         
         tableView.register(TaskCell.self, forCellReuseIdentifier: TaskCell.reuseId)
+        tableView.register(TasksTableViewHeader.self, forHeaderFooterViewReuseIdentifier: TasksTableViewHeader.reuseId)
     }
     
+    private func setupGraphView() {
+        let groupedTasks = graphView.getTasksGroupedByDay(for: tasks)
+        guard let dates = graphView.getInfoByDay(info: .dates, from: groupedTasks) as? [Date] else { return }
+        graphView.setupStackViewWithDates(dates: dates)
+        graphView.setupGraphDisplay(with: tasks)
+    }
 }
 
 
@@ -65,10 +97,12 @@ extension StatsVC {
     private func setupConstraints() {
         statsLabel.translatesAutoresizingMaskIntoConstraints = false
         graphView.translatesAutoresizingMaskIntoConstraints = false
+        switchAxisLabelsButton.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(statsLabel)
         view.addSubview(graphView)
+        view.addSubview(switchAxisLabelsButton)
         view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
@@ -82,6 +116,13 @@ extension StatsVC {
             graphView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             graphView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             graphView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.3)
+        ])
+        
+        NSLayoutConstraint.activate([
+            switchAxisLabelsButton.topAnchor.constraint(equalTo: graphView.topAnchor, constant: 8),
+            switchAxisLabelsButton.trailingAnchor.constraint(equalTo: graphView.trailingAnchor, constant: -12),
+            switchAxisLabelsButton.heightAnchor.constraint(equalToConstant: 20),
+            switchAxisLabelsButton.widthAnchor.constraint(equalToConstant: 100)
         ])
         
         NSLayoutConstraint.activate([
@@ -122,5 +163,11 @@ extension StatsVC: UITableViewDelegate, UITableViewDataSource {
         config.performsFirstActionWithFullSwipe = true
         
         return config
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TasksTableViewHeader.reuseId) as? TasksTableViewHeader else { return nil }
+        header.tintColor = Colors.purple
+        return header
     }
 }
