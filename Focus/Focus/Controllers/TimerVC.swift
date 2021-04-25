@@ -12,6 +12,7 @@ class TimerVC: UIViewController {
     var task = Task()
     private var timer = TimerModel()
     private var pomodoro = Pomodoro()
+    private var notificationManager = NotificationManager()
     private var timerIsTicking = false
     
     var settingsButton: UIButton = {
@@ -66,6 +67,9 @@ class TimerVC: UIViewController {
         timerView.updateTimerLabel(with: pomodoro.workTime)
         
         addObservers()
+        notificationManager.notificationCenter.delegate = self
+        
+        notificationManager.schedule()
     }
     
     @objc private func startStopTimerBtnPressed() {
@@ -80,6 +84,8 @@ class TimerVC: UIViewController {
             
             // Setup and start the timer
             timer.count = pomodoro.workTime
+            let notification = Notification(id: "1", title: "Time to take a break", body: "Tap to continue", timeInterval: pomodoro.workTime)
+            notificationManager.set(notification: notification)
             timer.start(
                 withUpdate: {
                     self.timerView.updateTimerLabel(with: self.timer.count)
@@ -87,6 +93,7 @@ class TimerVC: UIViewController {
                 },
                 newTimer: setNewTimerWithUIUpdate
             )
+            
             
         } else {
             // UIUpdate
@@ -113,6 +120,8 @@ class TimerVC: UIViewController {
             // Clear task stats
             taskTextField.text = ""
             task = Task()
+            
+            notificationManager.clearNotifications()
         }
     }
     
@@ -150,15 +159,26 @@ class TimerVC: UIViewController {
     }
     
     private func setNewTimerWithUIUpdate() {
+        
+        if timer.count <= 0 {
+            timerView.timerLabel.text = "00:00"
+        }
+        
         if timer.reps % 8 == 0 {
             timer.count = pomodoro.longBreak
+            let notification = Notification(id: "2", title: "Time to get back to work", body: "Tap to start a new round", timeInterval: pomodoro.longBreak)
+            notificationManager.set(notification: notification)
             timerView.startBreakTimer(withStatus: "Long break")
         } else if timer.reps % 2 == 0 {
             timer.count = pomodoro.shortBreak
+            let notification = Notification(id: "3", title: "Time to get back to work", body: "Tap to start a new round", timeInterval: pomodoro.shortBreak)
+            notificationManager.set(notification: notification)
             timerView.startBreakTimer(withStatus: "Break")
         } else {
             task.rounds += 1
             timer.count = pomodoro.workTime
+            let notification = Notification(id: "4", title: "Time to take a break", body: "Tap to continue", timeInterval: pomodoro.workTime)
+            notificationManager.set(notification: notification)
             timerView.startWorkTimer()
         }
     }
@@ -290,3 +310,11 @@ extension TimerVC {
     }
 }
 
+
+// MARK: - Notification Center Delegate
+extension TimerVC: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+        completionHandler([.banner, .sound])
+    }
+}

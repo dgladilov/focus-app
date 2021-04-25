@@ -22,6 +22,7 @@
 		DC582ACB2634779D00C71EAE /* TasksTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582ACA2634779D00C71EAE /* TasksTableViewHeader.swift */; };
 		DC582ACE2634A99B00C71EAE /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582ACD2634A99B00C71EAE /* SwitchButton.swift */; };
 		DC582AD22634C5EC00C71EAE /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582AD12634C5EC00C71EAE /* String + Extension.swift */; };
+		DC582AD52634CC7400C71EAE /* Notification Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC582AD42634CC7400C71EAE /* Notification Manager.swift */; };
 		DC9D437E2631A2AE007C9673 /* Pomodoro.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D437D2631A2AE007C9673 /* Pomodoro.swift */; };
 		DC9D439F2631B57D007C9673 /* UseerDefaults + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D439E2631B57D007C9673 /* UseerDefaults + Extension.swift */; };
 		DC9D43A42631B6FD007C9673 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9D43A32631B6FD007C9673 /* Keys.swift */; };
@@ -54,6 +55,7 @@
 		DC582ACA2634779D00C71EAE /* TasksTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTableViewHeader.swift; sourceTree = "<group>"; };
 		DC582ACD2634A99B00C71EAE /* SwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		DC582AD12634C5EC00C71EAE /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
+		DC582AD42634CC7400C71EAE /* Notification Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification Manager.swift"; sourceTree = "<group>"; };
 		DC9D437D2631A2AE007C9673 /* Pomodoro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pomodoro.swift; sourceTree = "<group>"; };
 		DC9D439E2631B57D007C9673 /* UseerDefaults + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UseerDefaults + Extension.swift"; sourceTree = "<group>"; };
 		DC9D43A32631B6FD007C9673 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				DC9D43A62631E4B8007C9673 /* TimerModel.swift */,
 				DC582AAD2633052000C71EAE /* Task.swift */,
 				DC582ABD2633176600C71EAE /* CoreDataStack.swift */,
+				DC582AD42634CC7400C71EAE /* Notification Manager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				DCAD358A2630958500E8940A /* TimerView.swift in Sources */,
 				DC582ABE2633176600C71EAE /* CoreDataStack.swift in Sources */,
 				DC582ABA263316F500C71EAE /* TaskModel+CoreDataClass.swift in Sources */,
+				DC582AD52634CC7400C71EAE /* Notification Manager.swift in Sources */,
 				DC582AC626345A3D00C71EAE /* TaskCell.swift in Sources */,
 				DC582ACE2634A99B00C71EAE /* SwitchButton.swift in Sources */,
 				DC40E37B262820F80063D1E0 /* SceneDelegate.swift in Sources */,
@@ -428,7 +432,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dgladilov.Focus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -447,7 +451,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dgladilov.Focus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
