@@ -67,7 +67,6 @@ class TimerVC: UIViewController {
         timerView.updateTimerLabel(with: pomodoro.workTime)
         
         addObservers()
-        notificationManager.notificationCenter.delegate = self
         
         notificationManager.schedule()
     }
@@ -266,6 +265,8 @@ extension TimerVC: SettingsViewControllerDelegate {
         UserDefaults.standard.setValue( workTime, forKey: Keys.workTime)
         UserDefaults.standard.setValue(shortBreak, forKey: Keys.shortBreakTime)
         UserDefaults.standard.setValue(longBreak, forKey: Keys.longBreakTime)
+        
+        notificationManager.clearNotifications()
     }
 }
 
@@ -307,14 +308,5 @@ extension TimerVC {
         if (UserDefaults.standard.object(forKey: Keys.pauseWhenBackgroundDate) as? Date) != nil {
             UserDefaults.standard.removeObject(forKey: Keys.pauseWhenBackgroundDate)
         }
-    }
-}
-
-
-// MARK: - Notification Center Delegate
-extension TimerVC: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-
-        completionHandler([.banner, .sound])
     }
 }
